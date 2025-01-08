@@ -1,0 +1,302 @@
+[
+    {
+      "Name": "Tasty Bites",
+      "Description": "A cozy restaurant offering a variety of delicious dishes.",
+      "Category": "Casual Dining",
+      "HasDelivery": true,
+      "ContactEmail": "info@tastybites.com",
+      "ContactNumber": "+1234567890",
+      "Address": {
+        "City": "New York",
+        "Street": "123 Main St",
+        "PostalCode": "10001"
+      },
+      "Dishes": [
+        {
+          "Name": "Spaghetti Carbonara",
+          "Description": "Classic Italian pasta with creamy sauce and bacon.",
+          "Price": 12.99
+        },
+        {
+          "Name": "Grilled Salmon",
+          "Description": "Freshly grilled salmon served with steamed vegetables.",
+          "Price": 18.50
+        },
+        {
+          "Name": "Cheeseburger",
+          "Description": "Juicy beef patty with melted cheese, lettuce, and tomato.",
+          "Price": 9.99
+        }
+      ]
+    },
+    {
+      "Name": "Sushi Palace",
+      "Description": "Authentic Japanese sushi and sashimi.",
+      "Category": "Japanese",
+      "HasDelivery": true,
+      "ContactEmail": "contact@sushipalace.com",
+      "ContactNumber": "+0987654321",
+      "Address": {
+        "City": "Los Angeles",
+        "Street": "456 Sushi Ave",
+        "PostalCode": "90001"
+      },
+      "Dishes": [
+        {
+          "Name": "California Roll",
+          "Description": "Crab, avocado, and cucumber roll.",
+          "Price": 8.99
+        },
+        {
+          "Name": "Sashimi Platter",
+          "Description": "Assorted fresh sashimi slices.",
+          "Price": 22.99
+        },
+        {
+          "Name": "Miso Soup",
+          "Description": "Traditional Japanese miso soup with tofu and seaweed.",
+          "Price": 3.99
+        }
+      ]
+    },
+    {
+      "Name": "Burger Haven",
+      "Description": "Home of the juiciest burgers in town.",
+      "Category": "Fast Food",
+      "HasDelivery": true,
+      "ContactEmail": "support@burgerhaven.com",
+      "ContactNumber": "+1122334455",
+      "Address": {
+        "City": "Chicago",
+        "Street": "789 Burger Lane",
+        "PostalCode": "60601"
+      },
+      "Dishes": [
+        {
+          "Name": "Classic Cheeseburger",
+          "Description": "Beef patty, cheese, lettuce, tomato, and pickles.",
+          "Price": 7.99
+        },
+        {
+          "Name": "Bacon BBQ Burger",
+          "Description": "Beef patty with bacon, BBQ sauce, and onion rings.",
+          "Price": 10.99
+        },
+        {
+          "Name": "Veggie Burger",
+          "Description": "Plant-based patty with fresh veggies.",
+          "Price": 8.99
+        }
+      ]
+    },
+    {
+      "Name": "Pizza Planet",
+      "Description": "The best pizzas in town, made with love.",
+      "Category": "Italian",
+      "HasDelivery": true,
+      "ContactEmail": "hello@pizzaplanet.com",
+      "ContactNumber": "+5566778899",
+      "Address": {
+        "City": "Houston",
+        "Street": "321 Pizza St",
+        "PostalCode": "77001"
+      },
+      "Dishes": [
+        {
+          "Name": "Margherita Pizza",
+          "Description": "Tomato sauce, fresh mozzarella, and basil.",
+          "Price": 11.99
+        },
+        {
+          "Name": "Pepperoni Pizza",
+          "Description": "Classic pepperoni with extra cheese.",
+          "Price": 13.99
+        },
+        {
+          "Name": "Vegetarian Pizza",
+          "Description": "Loaded with fresh vegetables and cheese.",
+          "Price": 12.99
+        }
+      ]
+    },
+    {
+      "Name": "Green Garden",
+      "Description": "Healthy and organic vegetarian dishes.",
+      "Category": "Vegetarian",
+      "HasDelivery": true,
+      "ContactEmail": "info@greengarden.com",
+      "ContactNumber": "+3344556677",
+      "Address": {
+        "City": "San Francisco",
+        "Street": "654 Green Rd",
+        "PostalCode": "94101"
+      },
+      "Dishes": [
+        {
+          "Name": "Quinoa Salad",
+          "Description": "Quinoa, mixed greens, cherry tomatoes, and avocado.",
+          "Price": 9.99
+        },
+        {
+          "Name": "Vegan Burger",
+          "Description": "Plant-based patty with vegan cheese and toppings.",
+          "Price": 10.99
+        },
+        {
+          "Name": "Sweet Potato Fries",
+          "Description": "Crispy sweet potato fries with dipping sauce.",
+          "Price": 5.99
+        }
+      ]
+    },
+    {
+      "Name": "Taco Fiesta",
+      "Description": "A vibrant Mexican restaurant serving flavorful tacos.",
+      "Category": "Mexican",
+      "HasDelivery": true,
+      "ContactEmail": "info@tacofiesta.com",
+      "ContactNumber": "+9988776655",
+      "Address": {
+        "City": "Austin",
+        "Street": "987 Taco Lane",
+        "PostalCode": "73301"
+      },
+      "Dishes": [
+        {
+          "Name": "Beef Tacos",
+          "Description": "Spicy beef tacos with fresh salsa and guacamole.",
+          "Price": 8.99
+        },
+        {
+          "Name": "Chicken Quesadilla",
+          "Description": "Grilled chicken and cheese in a crispy tortilla.",
+          "Price": 9.99
+        },
+        {
+          "Name": "Churros",
+          "Description": "Crispy fried dough with cinnamon sugar.",
+          "Price": 4.99
+        }
+      ]
+    },
+    {
+      "Name": "Curry House",
+      "Description": "Authentic Indian curries and tandoori dishes.",
+      "Category": "Indian",
+      "HasDelivery": true,
+      "ContactEmail": "contact@curryhouse.com",
+      "ContactNumber": "+1122334455",
+      "Address": {
+        "City": "Seattle",
+        "Street": "456 Curry St",
+        "PostalCode": "98101"
+      },
+      "Dishes": [
+        {
+          "Name": "Butter Chicken",
+          "Description": "Creamy tomato-based curry with tender chicken.",
+          "Price": 14.99
+        },
+        {
+          "Name": "Vegetable Biryani",
+          "Description": "Fragrant rice dish with mixed vegetables and spices.",
+          "Price": 12.99
+        },
+        {
+          "Name": "Garlic Naan",
+          "Description": "Soft and fluffy garlic-infused flatbread.",
+          "Price": 3.99
+        }
+      ]
+    },
+    {
+      "Name": "Steakhouse Grill",
+      "Description": "Premium steaks and grilled specialties.",
+      "Category": "Steakhouse",
+      "HasDelivery": false,
+      "ContactEmail": "reservations@steakhousegrill.com",
+      "ContactNumber": "+5544332211",
+      "Address": {
+        "City": "Dallas",
+        "Street": "321 Steak Ave",
+        "PostalCode": "75201"
+      },
+      "Dishes": [
+        {
+          "Name": "Ribeye Steak",
+          "Description": "Juicy ribeye steak cooked to perfection.",
+          "Price": 29.99
+        },
+        {
+          "Name": "Grilled Shrimp",
+          "Description": "Jumbo shrimp grilled with garlic butter.",
+          "Price": 18.99
+        },
+        {
+          "Name": "Caesar Salad",
+          "Description": "Classic Caesar salad with croutons and parmesan.",
+          "Price": 7.99
+        }
+      ]
+    },
+    {
+      "Name": "Noodle World",
+      "Description": "A variety of Asian noodle dishes from different regions.",
+      "Category": "Asian",
+      "HasDelivery": true,
+      "ContactEmail": "info@noodleworld.com",
+      "ContactNumber": "+6677889900",
+      "Address": {
+        "City": "San Diego",
+        "Street": "654 Noodle Blvd",
+        "PostalCode": "92101"
+      },
+      "Dishes": [
+        {
+          "Name": "Pad Thai",
+          "Description": "Stir-fried rice noodles with shrimp and peanuts.",
+          "Price": 11.99
+        },
+        {
+          "Name": "Ramen",
+          "Description": "Japanese noodle soup with pork broth and toppings.",
+          "Price": 10.99
+        },
+        {
+          "Name": "Lo Mein",
+          "Description": "Stir-fried noodles with vegetables and chicken.",
+          "Price": 9.99
+        }
+      ]
+    },
+    {
+      "Name": "Café Delight",
+      "Description": "A charming café serving coffee, pastries, and light meals.",
+      "Category": "Café",
+      "HasDelivery": true,
+      "ContactEmail": "hello@cafedelight.com",
+      "ContactNumber": "+1231231234",
+      "Address": {
+        "City": "Boston",
+        "Street": "789 Coffee St",
+        "PostalCode": "02101"
+      },
+      "Dishes": [
+        {
+          "Name": "Croissant",
+          "Description": "Freshly baked buttery croissant.",
+          "Price": 3.99
+        },
+        {
+          "Name": "Avocado Toast",
+          "Description": "Smashed avocado on toasted sourdough bread.",
+          "Price": 7.99
+        },
+        {
+          "Name": "Cappuccino",
+          "Description": "Rich espresso with steamed milk and foam.",
+          "Price": 4.99
+        }
+      ]
+    }
+  ]
