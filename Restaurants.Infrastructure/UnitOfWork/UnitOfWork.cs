@@ -32,7 +32,7 @@ namespace Restaurants.Infrastructure.UnitOfWork
                 _repositories.Add(typeof(TEntity).Name, repository);
             }
 
-            return _repositories[typeof(TEntity)] as IGenericRepository<TEntity>;
+            return _repositories[typeof(TEntity).Name] as IGenericRepository<TEntity>;
         }
 
 

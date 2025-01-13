@@ -20,6 +20,10 @@ namespace Restaurants.Infrastructure.Repositories
             _context = context;
             _dbSet= _context.Set<TEntity>();
         }
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
+        }
         public async Task AddAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
@@ -32,10 +36,7 @@ namespace Restaurants.Infrastructure.Repositories
             _dbSet.Remove(entity);
 
         }       
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
-        {
-           return await _dbSet.ToListAsync();
-        }
+     
 
         public async Task<TEntity?> GetByIdAsync(int? id)
         {
