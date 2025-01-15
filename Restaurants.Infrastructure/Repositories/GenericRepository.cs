@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Restaurants.Domain.Entities;
 using Restaurants.Domain.Interfaces.Repositories.Interfaces;
 using Restaurants.Infrastructure.Data.Contexts;
 using System;
@@ -22,6 +23,10 @@ namespace Restaurants.Infrastructure.Repositories
         }
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
+            if (typeof(TEntity) == typeof(Restaurant))
+            {
+                return await _context.Restaurants.Include(d => d.Dishes).ToListAsync() as IEnumerable<TEntity>;
+            }
             return await _dbSet.ToListAsync();
         }
         public async Task AddAsync(TEntity entity)
@@ -40,6 +45,10 @@ namespace Restaurants.Infrastructure.Repositories
 
         public async Task<TEntity?> GetByIdAsync(int? id)
         {
+            if (typeof(TEntity) == typeof(Restaurant))
+            {
+                return await _context.Restaurants.Include(d => d.Dishes).FirstOrDefaultAsync(i=>i.Id==id) as TEntity;
+            }
             return await _dbSet.FindAsync(id);
 
         }

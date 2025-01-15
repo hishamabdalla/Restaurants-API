@@ -1,4 +1,6 @@
-﻿using Restaurants.Domain.Entities;
+﻿using AutoMapper;
+using Restaurants.Application.DTOs.RestaurantDtos;
+using Restaurants.Domain.Entities;
 using Restaurants.Domain.Interfaces.Services.Interfaces;
 using Restaurants.Domain.Interfaces.UnitOfWork.Interface;
 using System;
@@ -12,19 +14,23 @@ namespace Restaurants.Application.Services
     public class RestaurantsService : IRestaurantService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public RestaurantsService(IUnitOfWork unitOfWork)
+        public RestaurantsService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
-        public async Task<IEnumerable<Restaurant>> GetAllRestaurants()
+        public async Task<IEnumerable<RestaurantDto>> GetAllRestaurants()
         {
-           return await _unitOfWork.Repository<Restaurant>().GetAllAsync();
+           return _mapper.Map<IEnumerable<RestaurantDto>>( await _unitOfWork.Repository<Restaurant>().GetAllAsync());
         }
 
-        public async Task<Restaurant> GetById(int id)
+        public async Task<RestaurantDto> GetById(int id)
         {
-            return await _unitOfWork.Repository<Restaurant>().GetByIdAsync(id);
+            return _mapper.Map<RestaurantDto>( await _unitOfWork.Repository<Restaurant>().GetByIdAsync(id));
         }
+
+       
     }
 }
