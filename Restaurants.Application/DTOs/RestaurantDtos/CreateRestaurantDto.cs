@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Restaurants.Domain.Entities
+namespace Restaurants.Application.DTOs.RestaurantDtos
 {
-    public class Restaurant:BaseEntity<int>
+    public class CreateRestaurantDto
     {
         public string Name { get; set; } = default!;
         public string Description { get; set; } = default!;
@@ -14,7 +14,8 @@ namespace Restaurants.Domain.Entities
         public bool HasDelivery { get; set; }
         public string? ContactEmail { get; set; }
         public string? ContactNumber { get; set; }
-        public Address? Address { get; set; }
-        public List<Dish> Dishes { get; set; } = new();
+        public string? City { get; set; }
+        public string? Street { get; set; }
+        public string? PostalCode { get; set; }
     }
 }

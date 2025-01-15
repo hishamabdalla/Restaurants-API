@@ -1,4 +1,5 @@
-﻿using Restaurants.Domain.Interfaces.Repositories.Interfaces;
+﻿using Restaurants.Domain.Entities;
+using Restaurants.Domain.Interfaces.Repositories.Interfaces;
 using Restaurants.Domain.Interfaces.UnitOfWork.Interface;
 using Restaurants.Infrastructure.Data.Contexts;
 using Restaurants.Infrastructure.Repositories;
@@ -24,15 +25,15 @@ namespace Restaurants.Infrastructure.UnitOfWork
 
         public async Task CompleteAsync() => await _context.SaveChangesAsync();
 
-        public IGenericRepository<TEntity> Repository<TEntity>() where TEntity : class
+        public IGenericRepository<TEntity,TKey> Repository<TEntity,TKey>() where TEntity : BaseEntity<TKey>
         {
             if (!_repositories.ContainsKey(typeof(TEntity).Name))
             {
-                var repository = new GenericRepository<TEntity>(_context);
+                var repository = new GenericRepository<TEntity,TKey>(_context);
                 _repositories.Add(typeof(TEntity).Name, repository);
             }
 
-            return _repositories[typeof(TEntity).Name] as IGenericRepository<TEntity>;
+            return _repositories[typeof(TEntity).Name] as IGenericRepository<TEntity,TKey>;
         }
 
 

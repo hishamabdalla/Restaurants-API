@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Restaurants.Infrastructure.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity,TKey> : IGenericRepository<TEntity,TKey> where TEntity : BaseEntity<TKey>
     {
         private readonly RestaurantsDbContext _context;
         private readonly DbSet<TEntity> _dbSet;
@@ -29,9 +29,11 @@ namespace Restaurants.Infrastructure.Repositories
             }
             return await _dbSet.ToListAsync();
         }
-        public async Task AddAsync(TEntity entity)
+        public async Task<TKey> AddAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
+            await _context.SaveChangesAsync();
+            return entity.Id;
         }
 
         public async Task Delete(int? id)

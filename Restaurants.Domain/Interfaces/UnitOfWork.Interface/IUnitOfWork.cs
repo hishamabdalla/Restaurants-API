@@ -1,4 +1,5 @@
-﻿using Restaurants.Domain.Interfaces.Repositories.Interfaces;
+﻿using Restaurants.Domain.Entities;
+using Restaurants.Domain.Interfaces.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace Restaurants.Domain.Interfaces.UnitOfWork.Interface
     public interface IUnitOfWork
     {
         Task CompleteAsync();
-        IGenericRepository<TEntity> Repository<TEntity>() where TEntity :class;
+        IGenericRepository<TEntity,TKey> Repository<TEntity,TKey>() where TEntity :BaseEntity<TKey>;
     }
 }

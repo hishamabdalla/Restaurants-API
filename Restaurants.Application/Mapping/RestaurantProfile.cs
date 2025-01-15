@@ -13,6 +13,14 @@ namespace Restaurants.Application.Mapping
     {
         public RestaurantProfile()
         {
+            CreateMap<CreateRestaurantDto, Restaurant>()
+                .ForMember(des => des.Address, opt => opt.MapFrom(src => new Address
+                {
+                    City = src.City,
+                    PostalCode = src.PostalCode,
+                    Street = src.Street
+                }));
+
             CreateMap<Restaurant,RestaurantDto>()
                 .ForMember(des=>des.Street,opt=>opt.MapFrom(src=>src.Address == null?null:src.Address.Street))
                 .ForMember(des=>des.PostalCode,opt=>opt.MapFrom(src => src.Address == null ? null : src.Address.PostalCode))

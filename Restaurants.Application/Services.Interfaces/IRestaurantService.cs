@@ -12,5 +12,6 @@ namespace Restaurants.Domain.Interfaces.Services.Interfaces
     {
         Task<IEnumerable<RestaurantDto>> GetAllRestaurants();
         Task<RestaurantDto> GetById(int id);
+        Task<int> CreateRestaurant(CreateRestaurantDto dto);
     }
 }

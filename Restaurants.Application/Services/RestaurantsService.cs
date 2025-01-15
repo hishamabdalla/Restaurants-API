@@ -21,15 +21,24 @@ namespace Restaurants.Application.Services
             _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        public async Task<int> CreateRestaurant(CreateRestaurantDto dto)
+        {
+            var restaurent= _mapper.Map<Restaurant>(dto);
+           var id= await _unitOfWork.Repository<Restaurant, int>().AddAsync(restaurent);
+            return id;
+        }
+
         public async Task<IEnumerable<RestaurantDto>> GetAllRestaurants()
         {
-           return _mapper.Map<IEnumerable<RestaurantDto>>( await _unitOfWork.Repository<Restaurant>().GetAllAsync());
+           return _mapper.Map<IEnumerable<RestaurantDto>>( await _unitOfWork.Repository<Restaurant,int>().GetAllAsync());
         }
 
         public async Task<RestaurantDto> GetById(int id)
         {
-            return _mapper.Map<RestaurantDto>( await _unitOfWork.Repository<Restaurant>().GetByIdAsync(id));
+            return _mapper.Map<RestaurantDto>( await _unitOfWork.Repository<Restaurant,int>().GetByIdAsync(id));
         }
+
 
        
     }
