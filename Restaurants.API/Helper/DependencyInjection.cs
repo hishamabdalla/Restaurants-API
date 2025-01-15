@@ -1,5 +1,9 @@
-﻿using Restaurants.Application.Mapping;
+﻿using FluentValidation;
+using FluentValidation.AspNetCore;
+using Restaurants.Application.DTOs.RestaurantDtos;
+using Restaurants.Application.Mapping;
 using Restaurants.Application.Services;
+using Restaurants.Application.Validator;
 using Restaurants.Domain.Interfaces.Repositories.Interfaces;
 using Restaurants.Domain.Interfaces.Services.Interfaces;
 using Restaurants.Domain.Interfaces.UnitOfWork.Interface;
@@ -16,6 +20,7 @@ namespace Restaurants.API.Helper
             services.AddSwaggerService();
             services.AddUserDefindService();
             services.AddAutoMapperService();
+            services.AddFluentValidationService();
             return services;
         }
 
@@ -37,6 +42,7 @@ namespace Restaurants.API.Helper
         {
             services.AddScoped<IRestaurantService,RestaurantsService>();
             services.AddScoped<IUnitOfWork,UnitOfWork>();
+            
             return services;
         }
 
@@ -45,6 +51,14 @@ namespace Restaurants.API.Helper
             //services.AddAutoMapper(typeof(ServiceCollectionExtensions).Assembly);
             services.AddAutoMapper(m => m.AddProfile(new RestaurantProfile()));
             services.AddAutoMapper(m => m.AddProfile(new DishProfile()));
+            return services;
+        }
+
+        private static IServiceCollection AddFluentValidationService(this IServiceCollection services)
+        {
+           services.AddFluentValidationAutoValidation();
+
+            services.AddScoped<IValidator<CreateRestaurantDto>, CreateRestaurantDtoValidator>();
             return services;
         }
 
