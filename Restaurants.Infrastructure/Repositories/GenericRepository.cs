@@ -36,10 +36,9 @@ namespace Restaurants.Infrastructure.Repositories
             return entity.Id;
         }
 
-        public async Task Delete(int? id)
+        public async Task Delete(TEntity  entity)
         {
-            
-            var entity =  await _dbSet.FindAsync(id);
+
             _dbSet.Remove(entity);
 
         }       

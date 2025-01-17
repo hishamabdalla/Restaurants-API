@@ -13,7 +13,7 @@ namespace Restaurants.Domain.Interfaces.Repositories.Interfaces
         Task<TEntity> GetByIdAsync(int? id);
         Task<TKey> AddAsync(TEntity entity);
         Task Update(TEntity entity);
-        Task Delete(int? id);
+        Task Delete(TEntity entity);
 
     }
 }
