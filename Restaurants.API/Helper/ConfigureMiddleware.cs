@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restaurants.Infrastructure.Data.Contexts;
 using Restaurants.Infrastructure.Data.Seeder.RestaurantsSeeder;
+using Serilog;
 
 namespace Restaurants.API.Helper
 {
@@ -23,6 +24,7 @@ namespace Restaurants.API.Helper
                 app.UseSwaggerUI();
             }
 
+            app.UseSerilogRequestLogging();
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

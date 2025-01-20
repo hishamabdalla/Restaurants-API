@@ -10,6 +10,8 @@ using Restaurants.Application.Restaurants.RestaurantDtos;
 using Restaurants.Domain.Interfaces.Repositories.Interfaces;
 using Restaurants.Domain.Interfaces.UnitOfWork.Interface;
 using Restaurants.Infrastructure.UnitOfWork;
+using Serilog;
+using Serilog.Events;
 using System.Runtime.CompilerServices;
 
 namespace Restaurants.API.Helper;
@@ -77,5 +79,16 @@ public static class DependencyInjection
 
         return services;
     }
+
+    public static void AddSerilogServices(this ConfigureHostBuilder host)
+    {
+        host.UseSerilog((context,configuration)=>
+            configuration
+            .MinimumLevel.Override("Microsoft",LogEventLevel.Warning)
+            .MinimumLevel.Override("Microsoft.EntityFrameworkCore",LogEventLevel.Information)
+            .WriteTo.Console(outputTemplate : "[{Timestamp:dd-MM HH:mm:ss} {Level:u3}] |{SourceContext}| {NewLine}{Message:lj}{NewLine}{Exception}")
+        );
+    }
+
 
 }
