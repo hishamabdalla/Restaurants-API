@@ -83,10 +83,8 @@ public static class DependencyInjection
     public static void AddSerilogServices(this ConfigureHostBuilder host)
     {
         host.UseSerilog((context,configuration)=>
-            configuration
-            .MinimumLevel.Override("Microsoft",LogEventLevel.Warning)
-            .MinimumLevel.Override("Microsoft.EntityFrameworkCore",LogEventLevel.Information)
-            .WriteTo.Console(outputTemplate : "[{Timestamp:dd-MM HH:mm:ss} {Level:u3}] |{SourceContext}| {NewLine}{Message:lj}{NewLine}{Exception}")
+            configuration.ReadFrom.Configuration(context.Configuration)
+            
         );
     }
 

@@ -17,7 +17,7 @@ namespace Restaurants.Application.Restaurants.Queries.GetRestaurantById
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
-        public GetRestaurantByIdQueryHandler(Logger<GetRestaurantByIdQueryHandler> logger,IMapper mapper, IUnitOfWork unitOfWork)
+        public GetRestaurantByIdQueryHandler(ILogger<GetRestaurantByIdQueryHandler> logger,IMapper mapper, IUnitOfWork unitOfWork)
         {
             _mapper = mapper;
             _unitOfWork = unitOfWork;
