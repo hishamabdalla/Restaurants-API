@@ -1,4 +1,4 @@
-﻿using Restaurants.Application.DTOs.DishDtos;
+﻿using Restaurants.Application.Dishes.DishDtos;
 using Restaurants.Domain.Entities;
 using System;
 using System.Collections.Generic;

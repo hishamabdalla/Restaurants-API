@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
-using Restaurants.Application.Mapping;
+using Restaurants.Application.Dishes.DTOs;
 using Restaurants.Application.Restaurants.Commands.CreateRestaurant;
 using Restaurants.Application.Restaurants.Commands.DeleteRestaurant;
 using Restaurants.Application.Restaurants.Commands.UpdateRestaurant;
+using Restaurants.Application.Restaurants.DTOs;
 using Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
 using Restaurants.Application.Restaurants.Queries.GetRestaurantById;
 using Restaurants.Application.Restaurants.RestaurantDtos;

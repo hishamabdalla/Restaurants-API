@@ -22,7 +22,7 @@ namespace Restaurants.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
         {
             var restaurants= await _mediator.Send(new GetAllRestaurantsQuery());
             if(restaurants==null)
@@ -31,7 +31,7 @@ namespace Restaurants.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<RestaurantDto?>> GetById([FromRoute] int id)
         {
             var restaurant=await _mediator.Send(new GetRestaurantByIdQuery(id));
             if (restaurant == null)
@@ -48,6 +48,8 @@ namespace Restaurants.API.Controllers
         }
 
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateRestaurant([FromRoute] int id,[FromBody] UpdateRestaurantCommand Command)
         {
             Command.Id = id;
@@ -60,6 +62,8 @@ namespace Restaurants.API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteRestaurant(int id)
         {
             var isDeleted = await _mediator.Send(new DeleteRestaurantCommand(id));
