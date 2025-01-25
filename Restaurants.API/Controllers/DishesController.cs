@@ -6,6 +6,7 @@ using Restaurants.Application.Dishes.Commands.DeleteDish;
 using Restaurants.Application.Dishes.Commands.UpdateDish;
 using Restaurants.Application.Dishes.Queries.GetAll;
 using Restaurants.Application.Dishes.Queries.GetDishById;
+using Restaurants.Domain.Entities;
 
 namespace Restaurants.API.Controllers
 {
@@ -24,8 +25,8 @@ namespace Restaurants.API.Controllers
         public async Task<IActionResult> CreateDish([FromRoute]int restaurantId,CreateDishCommand command)
         {
             command.RestaurantId = restaurantId;
-           await mediator.Send(command);
-            return Created();
+          var DishId = await mediator.Send(command);
+            return CreatedAtAction(nameof(GetDishByIdForRestaurant),new {restaurantId, DishId },null);
         }
         [HttpGet]
         public async Task<IActionResult> GetAllDishesForRestaurant([FromRoute]int restaurantId )
@@ -36,7 +37,7 @@ namespace Restaurants.API.Controllers
             return NotFound();
         }
         [HttpGet("{DishId}")]
-        public async Task<IActionResult> GetAllDishesForRestaurant([FromRoute] int restaurantId,int DishId)
+        public async Task<IActionResult> GetDishByIdForRestaurant([FromRoute] int restaurantId,int DishId)
         {
             var dishes = await mediator.Send(new GetDishForRestaurantQuery(restaurantId,DishId));
             if (dishes == null)

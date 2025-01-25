@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Restaurants.Domain.Entities;
 using Restaurants.Infrastructure.Data.Contexts;
 using Restaurants.Infrastructure.Data.Seeder.RestaurantsSeeder;
 using Serilog;
@@ -23,10 +24,14 @@ namespace Restaurants.API.Helper
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+            app.MapGroup("/api/Accounts")
+                .WithTags("Accounts")
+                .MapIdentityApi<AppUser>();
 
             app.UseSerilogRequestLogging();
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 

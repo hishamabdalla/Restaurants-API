@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Restaurants.Application.Restaurants.Commands.CreateRestaurant;
@@ -7,6 +8,7 @@ using Restaurants.Application.Restaurants.Commands.UpdateRestaurant;
 using Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
 using Restaurants.Application.Restaurants.Queries.GetRestaurantById;
 using Restaurants.Application.Restaurants.RestaurantDtos;
+using System.Security.Claims;
 
 namespace Restaurants.API.Controllers
 {
@@ -22,9 +24,11 @@ namespace Restaurants.API.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
         {
             var restaurants= await _mediator.Send(new GetAllRestaurantsQuery());
+            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if(restaurants==null)
                 return NotFound();
             return Ok(restaurants);
