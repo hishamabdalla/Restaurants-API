@@ -132,8 +132,9 @@ public static class DependencyInjection
     private static IServiceCollection AddIdentityService(this IServiceCollection services)
     {
         services.AddIdentityApiEndpoints<AppUser>()
-             .AddEntityFrameworkStores<RestaurantsDbContext>()
-             ;
+             .AddRoles<IdentityRole>()
+             .AddEntityFrameworkStores<RestaurantsDbContext>();
+             
 
         return services;
         
