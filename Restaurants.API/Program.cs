@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Host.AddSerilogServices();
     var app = builder.Build();
 
-    await app.ConfigureMiddlewareAsync();
+ await app.ConfigureMiddlewareAsync();
 
     app.Run();
         

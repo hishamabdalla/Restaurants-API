@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Restaurants.API.Error;
+using Restaurants.Application.Exceptions;
 using Restaurants.Application.Restaurants.Commands.CreateRestaurant;
 using Restaurants.Application.Restaurants.Commands.DeleteRestaurant;
 using Restaurants.Application.Restaurants.Commands.UpdateRestaurant;
@@ -28,9 +30,7 @@ namespace Restaurants.API.Controllers
         public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
         {
             var restaurants= await _mediator.Send(new GetAllRestaurantsQuery());
-            var userid = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            if(restaurants==null)
-                return NotFound();
+           
             return Ok(restaurants);
         }
 
@@ -39,7 +39,7 @@ namespace Restaurants.API.Controllers
         {
             var restaurant=await _mediator.Send(new GetRestaurantByIdQuery(id));
             if (restaurant == null)
-                return NotFound();
+                return NotFound(new ApiErrorResponse(StatusCodes.Status404NotFound, $"Restaurant With iD = {id} is not found"));
             return Ok(restaurant);
         }
 
@@ -62,7 +62,7 @@ namespace Restaurants.API.Controllers
             {
                 return NoContent();
             }
-            return NotFound();
+            return NotFound(new ApiErrorResponse(StatusCodes.Status404NotFound));
         }
 
         [HttpDelete("{id}")]

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Restaurants.API.Middleware;
 using Restaurants.Domain.Entities;
 using Restaurants.Infrastructure.Data.Contexts;
 using Restaurants.Infrastructure.Data.Seeder.RestaurantsSeeder;
@@ -17,7 +18,7 @@ namespace Restaurants.API.Helper
             await context.Database.MigrateAsync();
             await RestaurantSeed.Seed(context);
 
-
+            app.UseMiddleware<ExceptionMiddleware>();
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
