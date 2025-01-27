@@ -20,8 +20,8 @@ namespace Restaurants.Infrastructure.Data.Seeder.UserSeeder
                     UserName = "admin",
                     Email = "admin@gmail.com",
                     FirstName = "Admin",
-                    LastName = "Admin",
-                    EmailConfirmed = true
+                    LastName = "Admin"
+                   
 
                 };
                 await userManager.CreateAsync(user, "Admin@123");

@@ -10,6 +10,7 @@ using Restaurants.Application.Restaurants.Commands.UpdateRestaurant;
 using Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
 using Restaurants.Application.Restaurants.Queries.GetRestaurantById;
 using Restaurants.Application.Restaurants.RestaurantDtos;
+using Restaurants.Infrastructure.Authorization;
 using System.Security.Claims;
 
 namespace Restaurants.API.Controllers
@@ -26,7 +27,9 @@ namespace Restaurants.API.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize(Policy = PolicyNames.HasNationality)]
+        [Authorize(Policy = PolicyNames.AtLeast20)]
+
         public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
         {
             var restaurants= await _mediator.Send(new GetAllRestaurantsQuery());

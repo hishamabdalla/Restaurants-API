@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using Restaurants.API.Middleware;
@@ -15,6 +16,8 @@ using Restaurants.Application.User;
 using Restaurants.Domain.Entities;
 using Restaurants.Domain.Interfaces.Repositories.Interfaces;
 using Restaurants.Domain.Interfaces.UnitOfWork.Interface;
+using Restaurants.Infrastructure.Authorization;
+using Restaurants.Infrastructure.Authorization.Requierments;
 using Restaurants.Infrastructure.Data.Contexts;
 using Restaurants.Infrastructure.UnitOfWork;
 using Serilog;
@@ -133,8 +136,21 @@ public static class DependencyInjection
     {
         services.AddIdentityApiEndpoints<AppUser>()
              .AddRoles<IdentityRole>()
+             .AddClaimsPrincipalFactory<RestaruantUserClaimsPrincipalFactory>()
              .AddEntityFrameworkStores<RestaurantsDbContext>();
              
+        services.AddAuthorization(options=>
+{
+            options.AddPolicy(PolicyNames.HasNationality, 
+                policy => policy.RequireClaim(AppClaimTypes.Nationality,"Egyptian"));
+            options.AddPolicy(PolicyNames.AtLeast20,
+                builder => builder.AddRequirements(new MinimumAgeRequirement(20)));
+
+
+        });
+
+        services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
+
 
         return services;
         

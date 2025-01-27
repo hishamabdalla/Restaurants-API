@@ -1,10 +1,15 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Restaurants.Application.Users.Commands.AssignUserRole;
 using Restaurants.Application.Users.Commands.Register;
+using Restaurants.Application.Users.Commands.UnassignUserRole;
 using Restaurants.Application.Users.Commands.UpdateUsers;
+using Restaurants.Domain.Constant;
+using Restaurants.Infrastructure.Data.Migrations;
 
 namespace Restaurants.API.Controllers
 {
@@ -16,7 +21,7 @@ namespace Restaurants.API.Controllers
 
         public AccountsController(IMediator mediator)
         {
-            this._mediator = mediator;
+            _mediator = mediator;
         }
 
         [HttpPatch("user")]
@@ -31,7 +36,23 @@ namespace Restaurants.API.Controllers
             return NotFound();
         }
 
-       
+        [HttpPost("userRole")]
+        [Authorize(Roles = UserRole.Admin)]
+        public async Task<IActionResult> AssignUserRole(AssignUserRoleCommand command)
+        {
+            await _mediator.Send(command);
+            return Ok(new { message="Role is Assigned Successfully"});
+        }
+
+        [HttpDelete("userRole")]
+        [Authorize(Roles = UserRole.Admin)]
+        public async Task<IActionResult> UnassignUserRole(UnassignUserRoleCommand command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
+        }
+        
+
 
     }
 }
