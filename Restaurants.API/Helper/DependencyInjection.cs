@@ -18,6 +18,7 @@ using Restaurants.Domain.Interfaces.Repositories.Interfaces;
 using Restaurants.Domain.Interfaces.UnitOfWork.Interface;
 using Restaurants.Infrastructure.Authorization;
 using Restaurants.Infrastructure.Authorization.Requierments;
+using Restaurants.Infrastructure.Authorization.Services;
 using Restaurants.Infrastructure.Data.Contexts;
 using Restaurants.Infrastructure.UnitOfWork;
 using Serilog;
@@ -93,6 +94,7 @@ public static class DependencyInjection
     {
         services.AddScoped<IUnitOfWork,UnitOfWork>();
         services.AddScoped<IUserContext,UserContext>();
+        services.AddScoped<IRestaurantAuthorizationService, RestaurantAuthorizationService>();
 
         return services;
     }

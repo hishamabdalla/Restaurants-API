@@ -1,5 +1,6 @@
 ﻿
 using Restaurants.API.Error;
+using Restaurants.Application.Exceptions;
 using System.Text.Json;
 
 namespace Restaurants.API.Middleware
@@ -23,6 +24,11 @@ namespace Restaurants.API.Middleware
             {
                await next.Invoke(context);
             }
+            catch (ForbidException)
+            {
+                context.Response.StatusCode = 403;
+                await context.Response.WriteAsync("Access forbidden");
+            }
             catch (Exception ex)
             {
                 logger.LogError(ex,ex.Message);
@@ -36,6 +42,7 @@ namespace Restaurants.API.Middleware
                 await context.Response.WriteAsync(json);
                
             }
+            
         }
     }
 }

@@ -13,5 +13,9 @@ public class RestaurantsConfigurations : IEntityTypeConfiguration<Restaurant>
         builder.HasMany(R => R.Dishes)
             .WithOne()
             .HasForeignKey(D => D.RestaurantId);
+
+        builder.HasOne(R => R.Owner)
+            .WithMany(u=>u.Restaurants)
+            .HasForeignKey(i=>i.OwnerId);
     }
 }

@@ -4,7 +4,7 @@
     DateOnly? DateOfBirth)
     {
        
-         public bool InInRole(string RoleName) =>UserRoles.Contains(RoleName);
+        public bool InRole(string RoleName) =>UserRoles.Contains(RoleName);
 
             
     }
