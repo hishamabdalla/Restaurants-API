@@ -28,7 +28,9 @@ namespace Restaurants.API.Controllers
 
         [HttpGet]
         //[Authorize(Policy = PolicyNames.HasNationality)]
-        [Authorize(Policy = PolicyNames.AtLeast20)]
+        //[Authorize(Policy = PolicyNames.AtLeast20)]
+        //[Authorize(Policy = PolicyNames.CreatedAtleast2Restaurants)]
+
 
         public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
         {
