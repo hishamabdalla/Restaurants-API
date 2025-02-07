@@ -15,9 +15,12 @@ namespace Restaurants.Application.Restaurants.Commands.DeleteRestaurant
     public class DeleteRestaurantCommandHandler : IRequestHandler<DeleteRestaurantCommand, bool>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IRestaurantAuthorizationService restaurantAuthorizationService;
+
         public DeleteRestaurantCommandHandler(IUnitOfWork unitOfWork,IRestaurantAuthorizationService restaurantAuthorizationService)
         {
             _unitOfWork = unitOfWork;
+            this.restaurantAuthorizationService = restaurantAuthorizationService;
         }
         public async Task<bool> Handle(DeleteRestaurantCommand request, CancellationToken cancellationToken)
         {
