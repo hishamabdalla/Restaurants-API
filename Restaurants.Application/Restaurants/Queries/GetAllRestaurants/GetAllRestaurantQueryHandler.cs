@@ -3,6 +3,7 @@ using MediatR;
 using Restaurants.Application.Restaurants.RestaurantDtos;
 using Restaurants.Domain.Entities;
 using Restaurants.Domain.Interfaces.UnitOfWork.Interface;
+using Restaurants.Domain.Specification;
 
 namespace Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
 
@@ -18,7 +19,8 @@ public class GetAllRestaurantQueryHandler : IRequestHandler<GetAllRestaurantsQue
 
     public async Task<IEnumerable<RestaurantDto>> Handle(GetAllRestaurantsQuery request, CancellationToken cancellationToken)
     {
-        return _mapper.Map<IEnumerable<RestaurantDto>>(await _unitOfWork.Repository<Restaurant, int>().GetAllAsync());
+        var spec = new RestaurantSpecification();
+        return _mapper.Map<IEnumerable<RestaurantDto>>(await _unitOfWork.Repository<Restaurant, int>().GetAllWithSpecificationAsync(spec));
 
     }
 }

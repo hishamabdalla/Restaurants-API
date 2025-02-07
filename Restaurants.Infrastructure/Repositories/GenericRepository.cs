@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Restaurants.Domain.Entities;
 using Restaurants.Domain.Interfaces.Repositories.Interfaces;
+using Restaurants.Domain.Specification;
 using Restaurants.Infrastructure.Data.Contexts;
+using Restaurants.Infrastructure.Specification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,5 +62,21 @@ namespace Restaurants.Infrastructure.Repositories
             return Task.CompletedTask;
 
         }
+
+        public async Task<IEnumerable<TEntity>> GetAllWithSpecificationAsync(ISpecification<TEntity,TKey> specification)
+        {
+          return await ApplySpecification(specification).ToListAsync();
+        }
+
+        public async Task<TEntity> GetByIdWithSpecification(ISpecification<TEntity, TKey> specification)
+        {
+            return await ApplySpecification(specification).FirstOrDefaultAsync();
+        }
+        private  IQueryable<TEntity> ApplySpecification(ISpecification<TEntity, TKey> specification)
+        {
+            return  SpecificationEvaluator<TEntity, TKey>.GetQuery(_context.Set<TEntity>(), specification);
+        }
+
+      
     }
 }

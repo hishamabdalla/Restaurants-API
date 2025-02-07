@@ -1,4 +1,5 @@
 ﻿using Restaurants.Domain.Entities;
+using Restaurants.Domain.Specification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,10 @@ namespace Restaurants.Domain.Interfaces.Repositories.Interfaces
     {
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity> GetByIdAsync(int? id);
+
+        Task<IEnumerable<TEntity>> GetAllWithSpecificationAsync(ISpecification<TEntity, TKey> specification);
+        Task<TEntity> GetByIdWithSpecification(ISpecification<TEntity, TKey> specification);
+
         Task<TKey> AddAsync(TEntity entity);
         Task Update(TEntity entity);
         Task Delete(TEntity entity);

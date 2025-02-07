@@ -21,5 +21,11 @@ namespace Restaurants.Domain.Specification
             Criteria = criteria;
         }
 
+        
+        public void AddInclude(Expression<Func<TEntity, object>> includeExpression)
+        {
+        Includes.Add(includeExpression);
+        }
+
     }
 }

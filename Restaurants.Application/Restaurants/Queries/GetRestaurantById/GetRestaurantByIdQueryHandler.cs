@@ -5,6 +5,7 @@ using Restaurants.Application.Exceptions;
 using Restaurants.Application.Restaurants.RestaurantDtos;
 using Restaurants.Domain.Entities;
 using Restaurants.Domain.Interfaces.UnitOfWork.Interface;
+using Restaurants.Domain.Specification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,11 +29,13 @@ namespace Restaurants.Application.Restaurants.Queries.GetRestaurantById
         public async Task<RestaurantDto> Handle(GetRestaurantByIdQuery request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Getting restaurant {RestaurantId}",request.Id);
-            var restaurant = await _unitOfWork.Repository<Restaurant, int>().GetByIdAsync(request.Id);
-            //if (restaurant == null)
-            //{
-            //    throw new NotFoundException(nameof(Restaurant),request.Id.ToString());
-            //}
+
+            var spec=new RestaurantSpecification(request.Id);
+            var restaurant = await _unitOfWork.Repository<Restaurant, int>().GetByIdWithSpecification(spec);
+            if (restaurant == null)
+            {
+                throw new NotFoundException(nameof(Restaurant), request.Id.ToString());
+            }
             return _mapper.Map<RestaurantDto>(restaurant);
         }
     }
