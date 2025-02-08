@@ -14,14 +14,18 @@ namespace Restaurants.Domain.Specification
             ApplyIncludes();
         }
 
-        public RestaurantSpecification()
+        public RestaurantSpecification(int pageSize,int pageIndex)
         {
             ApplyIncludes();
+            ApplyPaging(pageSize*(pageIndex-1),pageSize);
+
         }
 
         private void ApplyIncludes()
         {
             AddInclude(r => r.Dishes);
         }
+
+       
     }
 }

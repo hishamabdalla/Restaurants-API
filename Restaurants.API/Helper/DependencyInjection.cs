@@ -12,6 +12,7 @@ using Restaurants.Application.Restaurants.DTOs;
 using Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
 using Restaurants.Application.Restaurants.Queries.GetRestaurantById;
 using Restaurants.Application.Restaurants.RestaurantDtos;
+using Restaurants.Application.URl.Services;
 using Restaurants.Application.User;
 using Restaurants.Domain.Entities;
 using Restaurants.Domain.Interfaces.Repositories.Interfaces;
@@ -23,6 +24,7 @@ using Restaurants.Infrastructure.Data.Contexts;
 using Restaurants.Infrastructure.UnitOfWork;
 using Serilog;
 using Serilog.Events;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 namespace Restaurants.API.Helper;
@@ -41,6 +43,7 @@ public static class DependencyInjection
         services.AddMediratorService();
         services.AddIdentityService();
         services.AddAuthenticationService();
+        services.AddURLService();
         return services;
     }
 
@@ -50,6 +53,19 @@ public static class DependencyInjection
         services.AddControllers();
         return services;
 
+    }
+    private static  IServiceCollection AddURLService(this IServiceCollection services)
+    {
+        services.AddHttpContextAccessor();
+
+        services.AddSingleton<IUriService>(provider =>
+       {
+           var accessor = provider.GetRequiredService<IHttpContextAccessor>();
+           var request = accessor.HttpContext.Request;
+           var uri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
+           return new UrlService<object>(uri);
+       });
+        return services;
     }
     private static IServiceCollection AddSwaggerService(this IServiceCollection services)
     {
@@ -118,6 +134,8 @@ public static class DependencyInjection
 
     private static IServiceCollection AddMediratorService(this IServiceCollection services)
     {
+        services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetAllRestaurantQueryHandler).Assembly));
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(GetRestaurantByIdQueryHandler).Assembly));
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(CreateRestaurantCommandHandler).Assembly));

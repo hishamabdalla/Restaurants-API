@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Restaurants.API.Error;
+using Restaurants.Application.Common.Pagination;
 using Restaurants.Application.Exceptions;
 using Restaurants.Application.Restaurants.Commands.CreateRestaurant;
 using Restaurants.Application.Restaurants.Commands.DeleteRestaurant;
@@ -10,6 +11,7 @@ using Restaurants.Application.Restaurants.Commands.UpdateRestaurant;
 using Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
 using Restaurants.Application.Restaurants.Queries.GetRestaurantById;
 using Restaurants.Application.Restaurants.RestaurantDtos;
+using Restaurants.Domain.Entities;
 using Restaurants.Infrastructure.Authorization;
 using System.Security.Claims;
 
@@ -32,9 +34,9 @@ namespace Restaurants.API.Controllers
         //[Authorize(Policy = PolicyNames.CreatedAtleast2Restaurants)]
 
 
-        public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll()
+        public async Task<ActionResult<IEnumerable<RestaurantDto>>> GetAll([FromQuery] GetAllRestaurantsQuery query)
         {
-            var restaurants= await _mediator.Send(new GetAllRestaurantsQuery());
+            var restaurants= await _mediator.Send(query);
            
             return Ok(restaurants);
         }

@@ -13,6 +13,9 @@ namespace Restaurants.Domain.Specification
     {
        public  Expression<Func<TEntity, bool>> Criteria { get; }=null; 
        public List<Expression<Func<TEntity, object>>> Includes { get; }=new List<Expression<Func<TEntity, object>>>();
+        public int Take { get; set; }
+        public int Skip { get; set; }
+        public bool IsPagingEnabled { get; set; }
 
         public BaseSpecification() { }
         
@@ -20,11 +23,17 @@ namespace Restaurants.Domain.Specification
         {
             Criteria = criteria;
         }
-
         
         public void AddInclude(Expression<Func<TEntity, object>> includeExpression)
         {
-        Includes.Add(includeExpression);
+          Includes.Add(includeExpression);
+        }
+
+        public void ApplyPaging(int skip, int take)
+        {
+            Skip = skip;
+            Take = take;
+            IsPagingEnabled = true;
         }
 
     }

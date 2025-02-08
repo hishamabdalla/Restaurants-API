@@ -72,11 +72,15 @@ namespace Restaurants.Infrastructure.Repositories
         {
             return await ApplySpecification(specification).FirstOrDefaultAsync();
         }
+        public async Task<int> GetCountAsync(ISpecification<TEntity, TKey> specification)
+        {
+            return await ApplySpecification(specification).CountAsync();
+        }
         private  IQueryable<TEntity> ApplySpecification(ISpecification<TEntity, TKey> specification)
         {
             return  SpecificationEvaluator<TEntity, TKey>.GetQuery(_context.Set<TEntity>(), specification);
         }
 
-      
+       
     }
 }
