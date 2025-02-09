@@ -28,7 +28,7 @@ public class CreateRestaurantCommandHandler : IRequestHandler<CreateRestaurantCo
     }
     async Task<int> IRequestHandler<CreateRestaurantCommand, int>.Handle(CreateRestaurantCommand request, CancellationToken cancellationToken)
     {
-        var currentUser = userContext.CurrentUser();
+        var currentUser = userContext.GetCurrentUser();
 
         _logger.LogInformation("{UserEmail} [{UserId}] is creating a new restaurant {@Restaurant}",currentUser.Email,currentUser.Id, request); 
         

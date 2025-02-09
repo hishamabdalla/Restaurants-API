@@ -22,7 +22,7 @@ namespace Restaurants.Infrastructure.Authorization.Requierments
         }
         protected override async Task HandleRequirementAsync(AuthorizationHandlerContext context, CreatedMultipleRestaurantsRequirement requirement)
         {
-            var currentUser = userContext.CurrentUser();
+            var currentUser = userContext.GetCurrentUser();
 
             var restaurants = await unitOfWork.Repository<Restaurant, int>().GetAllAsync();
 

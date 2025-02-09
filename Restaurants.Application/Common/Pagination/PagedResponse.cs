@@ -17,7 +17,7 @@ namespace Restaurants.Application.Common.Pagination
         public Uri NextPage { get; set; }
         public Uri PreviousPage { get; set; }
 
-        public PagedResponse( T data, int pageNumber, int pageSize,int totalRecords):base(data)
+        public PagedResponse(T data, int pageNumber, int pageSize,int totalRecords):base(data)
         {
             PageNumber = pageNumber;
             PageSize = pageSize;

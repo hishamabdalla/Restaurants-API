@@ -15,7 +15,7 @@ namespace Restaurants.Infrastructure.Authorization.Requierments
         protected override Task HandleRequirementAsync(AuthorizationHandlerContext context,
             MinimumAgeRequirement requirement)
         {
-            var currentUser = userContext.CurrentUser();
+            var currentUser = userContext.GetCurrentUser();
             logger.LogInformation("User: {Email}, date of birth {DoB} - Handling MinimumAgeRequirement",
                 currentUser.Email,
                 currentUser.DateOfBirth);

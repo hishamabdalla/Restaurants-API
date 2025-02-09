@@ -18,7 +18,7 @@ namespace Restaurants.Infrastructure.Authorization.Services
 
         public bool Authorize(Restaurant restaurant, ResourceOperation resourceOperation)
         {
-            var user = userContext.CurrentUser();
+            var user = userContext.GetCurrentUser();
             logger.LogInformation("Authorizing user {UserEmail}, to {Operation} for restaurant {RestaurantName}",
                 user.Email,
                 resourceOperation,

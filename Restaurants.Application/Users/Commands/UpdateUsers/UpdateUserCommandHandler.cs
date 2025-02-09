@@ -25,7 +25,7 @@ namespace Restaurants.Application.Users.Commands.UpdateUsers
         }
         public async Task<bool> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = userContext.CurrentUser();
+            var user = userContext.GetCurrentUser();
             logger.LogInformation("Updating user {@UserId}, With {@Request}",user?.Id,request);
 
             var dbUser= await userStore.FindByIdAsync(user!.Id, cancellationToken);
