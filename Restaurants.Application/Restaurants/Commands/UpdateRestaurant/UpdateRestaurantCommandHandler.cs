@@ -38,7 +38,7 @@ namespace Restaurants.Application.Restaurants.Commands.UpdateRestaurant
                 throw new ForbidException();
 
             _mapper.Map(request,restaurant);
-          await  _unitOfWork.CompleteAsync();
+             await  _unitOfWork.CompleteAsync();
             return true;
         }
     }
