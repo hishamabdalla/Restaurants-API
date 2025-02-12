@@ -26,7 +26,7 @@ public class CreateRestaurantCommandHandler : IRequestHandler<CreateRestaurantCo
         this.restaurantAuthorizationService = restaurantAuthorizationService;
         _logger = logger;
     }
-    async Task<int> IRequestHandler<CreateRestaurantCommand, int>.Handle(CreateRestaurantCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateRestaurantCommand request, CancellationToken cancellationToken)
     {
         var currentUser = userContext.GetCurrentUser();
 
@@ -35,11 +35,11 @@ public class CreateRestaurantCommandHandler : IRequestHandler<CreateRestaurantCo
         var restaurant = _mapper.Map<Restaurant>(request);
         restaurant.OwnerId=currentUser.Id;
 
-        if (!restaurantAuthorizationService.Authorize(restaurant, ResourceOperation.Update))
+        if (!restaurantAuthorizationService.Authorize(restaurant, ResourceOperation.Create))
             throw new ForbidException();
 
-        var id = await _unitOfWork.Repository<Restaurant, int>().AddAsync(restaurant);
-
-        return id;
-    }
+        await _unitOfWork.Repository<Restaurant, int>().AddAsync(restaurant);
+       await _unitOfWork.CompleteAsync();
+        return  restaurant.Id;
+    } 
 }

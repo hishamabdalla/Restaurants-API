@@ -31,11 +31,9 @@ namespace Restaurants.Infrastructure.Repositories
             }
             return await _dbSet.ToListAsync();
         }
-        public async Task<TKey> AddAsync(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
             await _dbSet.AddAsync(entity);
-            await _context.SaveChangesAsync();
-            return entity.Id;
         }
 
         public async Task Delete(TEntity  entity)

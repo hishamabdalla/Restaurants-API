@@ -21,7 +21,7 @@ namespace Restaurants.Application.Dishes.Commands.CreateDish
         private readonly IMapper mapper;
         private readonly IRestaurantAuthorizationService restaurantAuthorizationService;
 
-        public CreateDishCommandHandler(ILogger<CreateDishCommandHandler> logger,IUnitOfWork unitOfWork,IMapper mapper,IRestaurantAuthorizationService restaurantAuthorizationService)
+        public CreateDishCommandHandler(ILogger<CreateDishCommandHandler> logger,IUnitOfWork unitOfWork,IMapper mapper,IRestaurantAuthorizationService? restaurantAuthorizationService)
         {
             this.logger = logger;
             this.unitOfWork = unitOfWork;
@@ -38,13 +38,15 @@ namespace Restaurants.Application.Dishes.Commands.CreateDish
                 throw new ArgumentException();
             }
 
-            if (!restaurantAuthorizationService.Authorize(restaurant, ResourceOperation.Create))
-                throw new ForbidException();
+            //if (!restaurantAuthorizationService.Authorize(restaurant, ResourceOperation.Create))
+            //    throw new ForbidException();
             var dishMap=mapper.Map<Dish>(request);
 
-          return await unitOfWork.Repository<Dish,int>().AddAsync(dishMap);
+           await unitOfWork.Repository<Dish,int>().AddAsync(dishMap);
             
-
+            await unitOfWork.CompleteAsync();
+            return dishMap.Id;
+          
         }
     }
 }

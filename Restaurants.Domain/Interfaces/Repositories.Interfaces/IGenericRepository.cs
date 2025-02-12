@@ -16,7 +16,7 @@ namespace Restaurants.Domain.Interfaces.Repositories.Interfaces
         Task<IEnumerable<TEntity>> GetAllWithSpecificationAsync(ISpecification<TEntity, TKey> specification);
         Task<TEntity> GetByIdWithSpecification(ISpecification<TEntity, TKey> specification);
         Task<int> GetCountAsync(ISpecification<TEntity,TKey> specification);
-        Task<TKey> AddAsync(TEntity entity);
+        Task AddAsync(TEntity entity);
         Task Update(TEntity entity);
         Task Delete(TEntity entity);
 
