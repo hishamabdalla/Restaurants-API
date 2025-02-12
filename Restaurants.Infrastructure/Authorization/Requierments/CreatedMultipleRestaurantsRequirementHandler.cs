@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Restaurants.Infrastructure.Authorization.Requierments
 {
-    public class CreatedMultipleRestaurantsRequirementHandler : AuthorizationHandler<CreatedMultipleRestaurantsRequirement>
+    internal class CreatedMultipleRestaurantsRequirementHandler : AuthorizationHandler<CreatedMultipleRestaurantsRequirement>
     {
         private readonly IUnitOfWork unitOfWork;
         private readonly IUserContext userContext;
