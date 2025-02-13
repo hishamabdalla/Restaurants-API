@@ -29,7 +29,6 @@ namespace Restaurants.API.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Policy = PolicyNames.HasNationality)]
         //[Authorize(Policy = PolicyNames.AtLeast20)]
         //[Authorize(Policy = PolicyNames.CreatedAtleast2Restaurants)]
 
@@ -42,6 +41,7 @@ namespace Restaurants.API.Controllers
         }
 
         [HttpGet("{id}")]
+        //[Authorize(Policy = PolicyNames.HasNationality)]
         public async Task<ActionResult<RestaurantDto?>> GetById([FromRoute] int id)
         {
             var restaurant=await _mediator.Send(new GetRestaurantByIdQuery(id));

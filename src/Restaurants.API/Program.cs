@@ -16,4 +16,6 @@ var builder = WebApplication.CreateBuilder(args);
  await app.ConfigureMiddlewareAsync();
 
     app.Run();
+
+public partial class Program { }
         

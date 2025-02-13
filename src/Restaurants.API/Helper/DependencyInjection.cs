@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 using Restaurants.API.Middleware;
@@ -173,6 +174,8 @@ public static class DependencyInjection
 
         services.AddScoped<IAuthorizationHandler, MinimumAgeRequirementHandler>();
         services.AddScoped<IAuthorizationHandler, CreatedMultipleRestaurantsRequirementHandler>();
+        services.AddTransient<ExceptionMiddleware>();
+
 
 
         return services;
