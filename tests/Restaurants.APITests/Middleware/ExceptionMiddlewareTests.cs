@@ -22,19 +22,16 @@ namespace Restaurants.API.Middleware.Tests
             //arrange
             var logger = new Mock<ILogger<ExceptionMiddleware>>();
             var environment = new Mock<IHostEnvironment>();
-            var middleware = new ExceptionMiddleware( logger.Object, environment.Object);
+            var middleware = new ExceptionMiddleware(logger.Object, environment.Object);
             var nextDelegate = new Mock<RequestDelegate>();
-
-
 
             var context = new DefaultHttpContext();
 
             //act
-            await middleware.InvokeAsync(context,nextDelegate.Object);
+            await middleware.InvokeAsync(context, nextDelegate.Object);
 
             //assert
             nextDelegate.Verify(x => x.Invoke(context), Times.Once);
-
         }
 
         [Fact()]

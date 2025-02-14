@@ -68,7 +68,6 @@ namespace Restaurants.API.Controllers.Tests
         {
             //Arrange
             _unitOfWork.Setup(x => x.Repository<Restaurant, int>().GetByIdAsync(100)).ReturnsAsync((Restaurant?)null);
-             
             var client = _factory.CreateClient();
 
             var response = await client.GetAsync("/api/Restaurants/100");
