@@ -13,7 +13,7 @@ namespace Restaurants.Infrastructure.Data.Seeder.RestaurantsSeeder
     {
         public async static Task Seed(RestaurantsDbContext _context)
         {
-            if (_context.Restaurants.Count() == 0)
+            if (!_context.Restaurants.Any())
             {
                 var data = File.ReadAllText(@"..\Restaurants.Infrastructure\Data\Seeder\DataSeed\Restaurant.json");
 

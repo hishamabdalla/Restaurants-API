@@ -2,7 +2,6 @@
 using Restaurants.Application.User;
 using Restaurants.Domain.Constant;
 using Restaurants.Domain.Entities;
-using Restaurants.Infrastructure.Data.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;

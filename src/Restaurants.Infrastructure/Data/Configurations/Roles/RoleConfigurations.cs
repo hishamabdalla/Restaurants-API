@@ -17,7 +17,7 @@ namespace Restaurants.Infrastructure.Data.Configurations.NewFolder
             builder.HasData(
                 new IdentityRole
                 {
-                    Id = "4fce7af9-2279-4a32-a719-e4a4f3cfd154",
+                    Id = "ade9b91e-8cdc-4da9-8541-c1d73453223d",
                     Name = UserRole.Admin,
                     NormalizedName = UserRole.Admin.ToUpper()
                 },
