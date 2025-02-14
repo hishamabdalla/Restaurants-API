@@ -10,31 +10,24 @@ namespace Restaurants.APITests
     {
         public Task<AuthenticateResult> AuthenticateAsync(AuthorizationPolicy policy, HttpContext context)
         {
-            var claimPrincipal = new ClaimsPrincipal();
-            var claimsIdentity = new ClaimsIdentity();
+            var claimsPrincipal = new ClaimsPrincipal();
 
+            claimsPrincipal.AddIdentity(new ClaimsIdentity(
+                new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, "1"),
+                    new Claim(ClaimTypes.Role, "Admin"),
+                }));
 
-            claimsIdentity.AddClaim(new Claim(ClaimTypes.Name, "TestUser"));
-            claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, "1"));
-            claimsIdentity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
-            claimPrincipal.AddIdentity(claimsIdentity);
-
-            var ticket = new AuthenticationTicket(claimPrincipal, "TestScheme");
-
+            var ticket = new AuthenticationTicket(claimsPrincipal, "Test");
             var result = AuthenticateResult.Success(ticket);
-
             return Task.FromResult(result);
-
-
-            
         }
 
         public Task<PolicyAuthorizationResult> AuthorizeAsync(AuthorizationPolicy policy, AuthenticateResult authenticationResult, HttpContext context, object? resource)
         {
             var result = PolicyAuthorizationResult.Success();
-            
             return Task.FromResult(result);
-
         }
     }
 }
