@@ -16,7 +16,7 @@ namespace Restaurants.Infrastructure.Helper
         {
             services.AddDbContext<RestaurantsDbContext>(options =>
             options
-            .UseSqlServer(configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
+            .UseSqlServer(configuration.GetConnectionString("RemoteConnection")).EnableSensitiveDataLogging());
             
                 
             return services;

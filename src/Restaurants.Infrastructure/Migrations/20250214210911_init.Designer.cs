@@ -9,11 +9,11 @@ using Restaurants.Infrastructure.Data.Contexts;
 
 #nullable disable
 
-namespace Restaurants.Infrastructure.Data.Migrations
+namespace Restaurants.Infrastructure.Migrations
 {
     [DbContext(typeof(RestaurantsDbContext))]
-    [Migration("20250125090504_IdentityTables")]
-    partial class IdentityTables
+    [Migration("20250214210911_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,26 @@ namespace Restaurants.Infrastructure.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ade9b91e-8cdc-4da9-8541-c1d73453223d",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "57e3ba63-4d22-4e02-8b92-9be98dda6b95",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "62c3d2b0-e827-4c68-9df8-acee864ab4b6",
+                            Name = "Owner",
+                            NormalizedName = "OWNER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -170,6 +190,9 @@ namespace Restaurants.Infrastructure.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateOnly>("DateOfBirth")
+                        .HasColumnType("date");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -177,11 +200,20 @@ namespace Restaurants.Infrastructure.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Nationality")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -284,7 +316,12 @@ namespace Restaurants.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Restaurants");
                 });
@@ -351,6 +388,10 @@ namespace Restaurants.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Restaurants.Domain.Entities.Restaurant", b =>
                 {
+                    b.HasOne("Restaurants.Domain.Entities.AppUser", "Owner")
+                        .WithMany("Restaurants")
+                        .HasForeignKey("OwnerId");
+
                     b.OwnsOne("Restaurants.Domain.Entities.Address", "Address", b1 =>
                         {
                             b1.Property<int>("RestaurantId")
@@ -374,6 +415,13 @@ namespace Restaurants.Infrastructure.Data.Migrations
                         });
 
                     b.Navigation("Address");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Restaurants.Domain.Entities.AppUser", b =>
+                {
+                    b.Navigation("Restaurants");
                 });
 
             modelBuilder.Entity("Restaurants.Domain.Entities.Restaurant", b =>

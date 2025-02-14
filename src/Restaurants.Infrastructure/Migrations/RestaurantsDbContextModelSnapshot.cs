@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Restaurants.Infrastructure.Data.Contexts;
 
 #nullable disable
 
-namespace Restaurants.Infrastructure.Data.Migrations
+namespace Restaurants.Infrastructure.Migrations
 {
     [DbContext(typeof(RestaurantsDbContext))]
-    [Migration("20250126184730_UserRoles")]
-    partial class UserRoles
+    partial class RestaurantsDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,19 +51,19 @@ namespace Restaurants.Infrastructure.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1",
+                            Id = "ade9b91e-8cdc-4da9-8541-c1d73453223d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2",
+                            Id = "57e3ba63-4d22-4e02-8b92-9be98dda6b95",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "3",
+                            Id = "62c3d2b0-e827-4c68-9df8-acee864ab4b6",
                             Name = "Owner",
                             NormalizedName = "OWNER"
                         });
@@ -316,7 +313,12 @@ namespace Restaurants.Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OwnerId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Restaurants");
                 });
@@ -383,6 +385,10 @@ namespace Restaurants.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("Restaurants.Domain.Entities.Restaurant", b =>
                 {
+                    b.HasOne("Restaurants.Domain.Entities.AppUser", "Owner")
+                        .WithMany("Restaurants")
+                        .HasForeignKey("OwnerId");
+
                     b.OwnsOne("Restaurants.Domain.Entities.Address", "Address", b1 =>
                         {
                             b1.Property<int>("RestaurantId")
@@ -406,6 +412,13 @@ namespace Restaurants.Infrastructure.Data.Migrations
                         });
 
                     b.Navigation("Address");
+
+                    b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Restaurants.Domain.Entities.AppUser", b =>
+                {
+                    b.Navigation("Restaurants");
                 });
 
             modelBuilder.Entity("Restaurants.Domain.Entities.Restaurant", b =>

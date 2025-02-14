@@ -18,6 +18,6 @@ namespace Restaurants.Domain.Entities
         public List<Dish> Dishes { get; set; } = new();
 
         public AppUser Owner { get; set; } = default!;
-        public string OwnerId { get; set; }= default!;
+        public string? OwnerId { get; set; }= default!;
     }
 }

@@ -9,7 +9,6 @@ using Restaurants.Application.Users.Commands.Register;
 using Restaurants.Application.Users.Commands.UnassignUserRole;
 using Restaurants.Application.Users.Commands.UpdateUsers;
 using Restaurants.Domain.Constant;
-using Restaurants.Infrastructure.Data.Migrations;
 
 namespace Restaurants.API.Controllers
 {
