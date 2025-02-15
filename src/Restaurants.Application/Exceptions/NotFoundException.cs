@@ -6,9 +6,20 @@ using System.Threading.Tasks;
 
 namespace Restaurants.Application.Exceptions
 {
-    public class NotFoundException(string resourceType, string resourceIdentifier)
-     : Exception($"{resourceType} with id: {resourceIdentifier} doesn't exist")
+    public class NotFoundException : Exception
     {
+        public NotFoundException(string name, string key)
+            : base($"Entity \"{name}\" ({key}) was not found.")
+        {
+        }
+
+        public NotFoundException( string message)
+            : base( message)
+        {
+        }
+
+
+
 
     }
 }

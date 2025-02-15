@@ -25,5 +25,8 @@ namespace Restaurants.Application.Common.Pagination
             TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
            
         }
+
+
+
     }
 }

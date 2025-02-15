@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using AutoMapper;
+using FluentAssertions;
 using Microsoft.AspNetCore.Authorization.Policy;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
@@ -38,15 +39,39 @@ namespace Restaurants.API.Controllers.Tests
             });
         }
 
+
+        [Fact]
+        public async Task GetById_ForExistingId_ShouldReturn200Ok()
+        {
+            // Arrange
+            var id = 1;
+
+            var restaurant = new Restaurant { Id = id, Name = "Restaurant A", Description = "Test A" };
+
+            _unitOfWork
+                .Setup(m => m.Repository<Restaurant, int>().GetByIdWithSpecification(It.IsAny<RestaurantSpecification>()))
+                .ReturnsAsync(restaurant);
+
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync($"/api/restaurants/{id}");
+
+            // Assert
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
+        }
+
         [Fact]
         public async Task GetById_ForNonExistingId_ShouldReturn404NotFound()
         {
             // Arrange
             var id = 1123;
 
+            var restaurant = new Restaurant { Id = id, Name = "Restaurant A", Description = "Test A" };
+
             _unitOfWork
                 .Setup(m => m.Repository<Restaurant, int>().GetByIdAsync(id))
-                .ReturnsAsync((Restaurant)null);
+                .ReturnsAsync(restaurant);
 
             var client = _factory.CreateClient();
 
@@ -57,32 +82,34 @@ namespace Restaurants.API.Controllers.Tests
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
 
-       
+
 
         [Fact]
         public async Task GetAll_ForValidRequest_Returns200Ok()
         {
             // Arrange
             var restaurants = new List<Restaurant>
-            {
-            new Restaurant { Id = 1, Name = "Restaurant A", Description = "Test A" },
-            new Restaurant { Id = 2, Name = "Restaurant B", Description = "Test B" }
-            };
+        {
+        new Restaurant { Id = 1, Name = "Restaurant A", Description = "Test A" },
+        new Restaurant { Id = 2, Name = "Restaurant B", Description = "Test B" }
+      };
 
-
+            // Mock GetAllWithSpecificationAsync instead of GetAllAsync
             _unitOfWork
-                .Setup(m => m.Repository<Restaurant, int>().GetAllAsync())
+                .Setup(m => m.Repository<Restaurant, int>().GetAllWithSpecificationAsync(It.IsAny<RestaurantSpecification>()))
                 .ReturnsAsync(restaurants);
 
             var client = _factory.CreateClient();
 
             // Act
             var result = await client.GetAsync("/api/restaurants?pageNumber=1&pageSize=10");
-            var responseBody = await result.Content.ReadAsStringAsync(); // Log response
 
             // Assert
             result.StatusCode.Should().Be(HttpStatusCode.OK);
+
         }
 
-    }       
+        
+
+    }
 }

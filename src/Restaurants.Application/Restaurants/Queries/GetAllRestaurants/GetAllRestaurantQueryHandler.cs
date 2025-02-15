@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Restaurants.Application.Common.Pagination;
+using Restaurants.Application.Exceptions;
 using Restaurants.Application.Restaurants.RestaurantDtos;
 using Restaurants.Application.URl.Services;
 using Restaurants.Domain.Entities;
@@ -27,6 +28,10 @@ public class GetAllRestaurantQueryHandler : IRequestHandler<GetAllRestaurantsQue
         var spec = new RestaurantSpecification(request.PageSize,request.PageNumber,request.Search);
         var dto=  _mapper.Map<IEnumerable<RestaurantDto>>(await _unitOfWork.Repository<Restaurant, int>().GetAllWithSpecificationAsync(spec));
 
+        if(!dto.Any())
+        {
+            throw new NotFoundException( "No Restaurants Found");
+        }
         var countSpec = new RestaurantWithCountSpecification(request.Search);
         var count= await _unitOfWork.Repository<Restaurant, int>().GetCountAsync(countSpec);
 
