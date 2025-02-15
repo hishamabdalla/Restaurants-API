@@ -32,9 +32,8 @@ namespace Restaurants.API.Controllers
         public async Task<IActionResult> GetAllDishesForRestaurant([FromRoute]int restaurantId )
         {
             var dishes=await mediator.Send(new GetAllDishesForRestaurantQuery(restaurantId));
-            if (dishes.Count()>0)
-                 return Ok(dishes);
-            return NotFound();
+            return StatusCode(dishes.StatusCode, dishes);
+            
         }
         [HttpGet("{DishId}")]
         public async Task<IActionResult> GetDishByIdForRestaurant([FromRoute] int restaurantId,int DishId)

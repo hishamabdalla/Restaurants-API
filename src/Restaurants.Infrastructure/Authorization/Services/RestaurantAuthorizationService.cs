@@ -13,8 +13,6 @@ namespace Restaurants.Infrastructure.Authorization.Services
     public class RestaurantAuthorizationService(ILogger<RestaurantAuthorizationService> logger,
     IUserContext userContext) : IRestaurantAuthorizationService
     {
-        
-
         public bool Authorize(Restaurant restaurant, ResourceOperation resourceOperation)
         {
             var user = userContext.GetCurrentUser();

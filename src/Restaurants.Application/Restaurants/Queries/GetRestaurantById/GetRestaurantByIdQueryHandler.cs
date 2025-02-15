@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.Extensions.Logging;
+using Restaurants.Application.Common;
 using Restaurants.Application.Exceptions;
 using Restaurants.Application.Restaurants.RestaurantDtos;
 using Restaurants.Domain.Entities;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Restaurants.Application.Restaurants.Queries.GetRestaurantById
 {
-    public class GetRestaurantByIdQueryHandler : IRequestHandler<GetRestaurantByIdQuery, RestaurantDto>
+    public class GetRestaurantByIdQueryHandler : IRequestHandler<GetRestaurantByIdQuery, ApiResponse<RestaurantDto>>
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
@@ -26,7 +27,7 @@ namespace Restaurants.Application.Restaurants.Queries.GetRestaurantById
             _logger = logger;
 
         }
-        public async Task<RestaurantDto> Handle(GetRestaurantByIdQuery request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<RestaurantDto>> Handle(GetRestaurantByIdQuery request, CancellationToken cancellationToken)
         {
             _logger.LogInformation("Getting restaurant {RestaurantId}",request.Id);
 
@@ -36,7 +37,10 @@ namespace Restaurants.Application.Restaurants.Queries.GetRestaurantById
             {
                 throw new NotFoundException(nameof(Restaurant), request.Id.ToString());
             }
-            return _mapper.Map<RestaurantDto>(restaurant);
+            
+            var dto=_mapper.Map<RestaurantDto>(restaurant);
+
+            return new ApiResponse<RestaurantDto>(dto);
         }
     }
 }

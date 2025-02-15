@@ -16,8 +16,6 @@ namespace Restaurants.API.Middleware
             this.environment = environment;
         }
 
-       
-
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
 
