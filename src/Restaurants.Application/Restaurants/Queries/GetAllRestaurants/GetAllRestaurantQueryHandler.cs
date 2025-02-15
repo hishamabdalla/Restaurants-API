@@ -24,10 +24,10 @@ public class GetAllRestaurantQueryHandler : IRequestHandler<GetAllRestaurantsQue
     public async Task<PagedResponse<IEnumerable<RestaurantDto>>> Handle(GetAllRestaurantsQuery request, CancellationToken cancellationToken)
     {
         var route = $"/api/{nameof(Restaurants)}";
-        var spec = new RestaurantSpecification(request.PageSize,request.PageNumber);
+        var spec = new RestaurantSpecification(request.PageSize,request.PageNumber,request.Search);
         var dto=  _mapper.Map<IEnumerable<RestaurantDto>>(await _unitOfWork.Repository<Restaurant, int>().GetAllWithSpecificationAsync(spec));
 
-        var countSpec = new RestaurantWithCountSpecification();
+        var countSpec = new RestaurantWithCountSpecification(request.Search);
         var count= await _unitOfWork.Repository<Restaurant, int>().GetCountAsync(countSpec);
 
         return PaginationHelper.CreatePagedReponse<RestaurantDto>(dto,request.PageNumber,request.PageSize,count,uriService, route);

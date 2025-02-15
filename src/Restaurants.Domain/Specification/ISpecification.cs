@@ -12,6 +12,9 @@ namespace Restaurants.Domain.Specification
     {
         Expression<Func<TEntity, bool>> Criteria { get; }
         List<Expression<Func<TEntity, object>>> Includes { get; }
+
+        
+
         int Take { get; set; }
         int Skip { get; set; }
         bool IsPagingEnabled { get; set; }

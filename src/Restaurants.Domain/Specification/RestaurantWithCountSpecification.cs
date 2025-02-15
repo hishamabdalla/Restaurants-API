@@ -9,9 +9,11 @@ namespace Restaurants.Domain.Specification
 {
     public class RestaurantWithCountSpecification : BaseSpecification<Restaurant, int>
     {
-        public RestaurantWithCountSpecification()
+        public RestaurantWithCountSpecification(string? search):base
+        (
+            R=>string.IsNullOrEmpty(search)||R.Name.ToLower().Contains(search.ToLower())
+        )
         {
-
         }
     }
 }

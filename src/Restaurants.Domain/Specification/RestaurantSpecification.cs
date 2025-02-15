@@ -14,7 +14,10 @@ namespace Restaurants.Domain.Specification
             ApplyIncludes();
         }
 
-        public RestaurantSpecification(int pageSize,int pageIndex)
+        public RestaurantSpecification(int pageSize,int pageIndex,string search):base
+        (
+            R=>string.IsNullOrEmpty(search)||R.Name.ToLower().Contains(search.ToLower())
+        )
         {
             ApplyIncludes();
             ApplyPaging(pageSize*(pageIndex-1),pageSize);

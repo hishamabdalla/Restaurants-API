@@ -84,6 +84,5 @@ namespace Restaurants.API.Controllers.Tests
             result.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
-
     }       
 }

@@ -7,6 +7,5 @@ namespace Restaurants.Application.Restaurants.Queries.GetAllRestaurants;
 
 public class GetAllRestaurantsQuery : PaginationQuery<IEnumerable<RestaurantDto>>
 {
-   
-
+   public string? Search { get; set; }
 }
